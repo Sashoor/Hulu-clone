@@ -1,13 +1,13 @@
 import './App.css';
 import Header from './Header.js'
+import Nav from './Nav';
 
 
 function App() {
   return (
     <div className="app">
-{/* header completed */}
     <Header />
-    {/* Nav */}
+    < Nav />
     {/* Results */}
 
     </div>
