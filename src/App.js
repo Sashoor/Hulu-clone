@@ -5,7 +5,7 @@ import Header from './Header.js'
 function App() {
   return (
     <div className="app">
-
+{/* header completed */}
     <Header />
     {/* Nav */}
     {/* Results */}
