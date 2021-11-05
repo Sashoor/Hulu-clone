@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './Header.js'
 import Nav from './Nav';
+import Results from './Results';
 
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
     <div className="app">
     <Header />
     < Nav />
-    {/* Results */}
+    <Results />
 
     </div>
   );
