@@ -1,14 +1,32 @@
 import React from 'react'
 import './VideoCard.css'
+import TextTruncate from "react-text-truncate";
+import ThumbUpAltSharpIcon from '@mui/icons-material/ThumbUpAltSharp';
+
+
+const base_url = "https://image.tmdb.org/t/p/original/";
 
 function VideoCard({ movie }) {
     return (
         <div className="videoCard">
-           <img src="data:image/jpeg;base64,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o6jK8RY51W3fuvPouJztbG1k8rGxFzohHI5mhzu7hpIon1XLcnZp/aEb5XGQyB7C6RznOsjY6jvdgboOxcT4VJE1xdKRCzC6cXi/F+YkLS8ue47kva3z2Gmuy6OeJTAPaJKDnEkNPhDhYtn9kd+1Lu+Vw5ssMGO8H/mGWHmzqrXIdP8AiB+n38/yXEusjya31B0tDf5Irt3DeD4fEmmPEjyYsmKAudNLckU8/m2R+o6QdqoA7Huus8bwfl8maC76UhZfqNj/ADRnFskAAZOQAG6Q0TS6dP8AZq+3svySyF7i5xJc42SdySgwiIiCWiIOY5X4wMPKZOWue1thzWu0nfz9DXoV6Lx7mvFzMJzWPaWyDQ+OQaXxlwrV+oJ8vReRLQft+hv91ID+5F37+qyiICtqKkEIFq6llEGtSWpSiK1aallEQVCiILatrKIraLKoKI0gUVCAiKIKii0UERNq87v6UogqM076tXY1prv5XfkoVCgq/VwycxzRPH9SRjjXegbIX5FqJ3ib+o/ig75BxVj48fKeQ13z+c4x2AXN6Ujg4i9t3Bv0XTs17Tj4tfmHzOrav64pfmfIe3kC4t9rN9/ovkUEREQEREBERARFUEREUBERUEAREGiVlEUBERAREQEREBVRUKjSqyFUBFEQVFCgQVAFCiCqFVQoJaBERRRVRARERBERQERFQREUBERAREQEREBUKIgK2oiAiIgIiICIiCpaiKqtoiBBSgUVQab7qLKoRGnOHkK2r/VYKKIqqIiIIiICIigIiICIiAiIgIiICIiAiIgIiICIloAREQEREBERAREQERFQREQFbREEREUBERUEREBERQEREBERAREQEREBERAREQFXtokbbem4REGUREH/2Q==" alt=""/> 
+           <img src={
+          `${base_url}${movie.backdrop_path || movie.poster_path}` ||
+          `${base_url}${movie.poster_path}`
+        } alt=""/> 
        
-       <p>This is a film about Fighting</p>
-       <h2>Movie title</h2>
-       <p>Number of likes...</p>
+       <TextTruncate
+        line={1}
+        element="p"
+        truncateText="…"
+        text={movie.overview}
+      />
+       <h2>{movie.title || movie.original_name}</h2>
+       <p className="videoCard__stats">
+       {movie.media_type && `${movie.media_type} •`}
+       {movie.release_date || movie.first_air_date} •
+        <ThumbUpAltSharpIcon />{" "}
+        {movie.vote_count}
+         </p>
         </div>
     )
 }
