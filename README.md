@@ -28,88 +28,106 @@ The application is containerised using a **multi-stage Docker build** and served
 
 ## 📁 Project Structure
 
+```
 HULU-CLONE/
-├─ src/ # React source code
-├─ public/ # Static public assets
-├─ nginx.conf # nginx SPA routing configuration
-├─ Dockerfile # Production Dockerfile
-├─ .dockerignore
-├─ package.json
-├─ package-lock.json
-└─ README.md
-
+├── src/                # React source code
+├── public/             # Static public assets
+├── nginx.conf          # nginx SPA routing configuration
+├── Dockerfile          # Production Dockerfile
+├── .dockerignore       # Docker build exclusions
+├── package.json        # Node.js dependencies
+├── package-lock.json   # Dependency lock file
+└── README.md           # Project documentation
+```
 
 ---
 
 ## 🧑‍💻 Local Development (Node.js)
 
 ### Prerequisites
+
 - Node.js 18 or later
 - npm
 
-### Install dependencies
+### Install Dependencies
+
+```bash
 npm install
+```
 
-### Run the application
+### Run the Application
+
+```bash
 npm start
+```
 
-### Open in your browser
+### Open in Your Browser
+
+```
 http://localhost:3000
+```
 
-### 🐳 Docker (Production)
+---
+
+## 🐳 Docker (Production)
 
 Running the app via Docker is the recommended approach.
 
-Build the Docker image
+### Build the Docker Image
+
+```bash
 docker build -t hulu-clone:prod .
+```
 
-### Run the container
+### Run the Container
+
+```bash
 docker run --rm -p 3000:80 hulu-clone:prod
+```
 
+### Open in Your Browser
 
-### Open in your browser:
-
+```
 http://localhost:3000
+```
 
-### What happens in Docker
+### What Happens in Docker
 
-React app is built using Node.js in a build stage
+- React app is built using Node.js in a build stage
+- A static production build is generated
+- nginx serves the static files
+- No Node.js runtime is required in the final image
 
-A static production build is generated
+---
 
-nginx serves the static files
-
-No Node.js runtime is required in the final image
-
-### 🌐 SPA Routing
+## 🌐 SPA Routing
 
 This application is a Single Page Application (SPA).
 
 The nginx configuration ensures that client-side routes work correctly on refresh or direct access:
 
+```nginx
 location / {
-  try_files $uri $uri/ /index.html;
+    try_files $uri $uri/ /index.html;
 }
+```
 
-Without this configuration, refreshing routes such as /movie/123 would result in a 404 error.
+Without this configuration, refreshing routes such as `/movie/123` would result in a 404 error.
 
+---
 
-### 🔐 TMDB API Notes
+## 🔐 TMDB API Notes
 
-Movie data is fetched client-side from the TMDB API
+- Movie data is fetched client-side from the TMDB API
+- API keys used in the frontend are public-read and visible in the browser
+- This is expected behavior for TMDB and similar public APIs
+- No secrets are stored inside the Docker image
 
-API keys used in the frontend are public-read and visible in the browser
+---
 
-This is expected behaviour for TMDB and similar public APIs
+## 📦 Why nginx + Docker?
 
-No secrets are stored inside the Docker image
-
-### 📦 Why nginx + Docker?
-
-Faster and lighter than running a Node.js dev server
-
-Smaller, more secure runtime image
-
-Matches real-world SPA deployment patterns (CDN / edge hosting)
-
-Clear separation between build-time and runtime concerns
+- Faster and lighter than running a Node.js dev server
+- Smaller, more secure runtime image
+- Matches real-world SPA deployment patterns (CDN / edge hosting)
+- Clear separation between build-time and runtime concerns
