@@ -1,5 +1,8 @@
 # 🎬 Hulu Clone (React + Docker)
 
+![Homepage](screenshots/homepage.png)
+
+
 A Hulu-style movie browsing application built with **React (Create React App)** and powered by **real-time TMDB API data**.  
 The application is containerised using a **multi-stage Docker build** and served via **nginx** for fast, production-grade delivery.
 
@@ -40,94 +43,78 @@ HULU-CLONE/
 └── README.md           # Project documentation
 ```
 
+
 ---
 
 ## 🧑‍💻 Local Development (Node.js)
 
 ### Prerequisites
-
 - Node.js 18 or later
 - npm
 
-### Install Dependencies
-
-```bash
+### Install dependencies
 npm install
-```
 
-### Run the Application
-
-```bash
+### Run the application
 npm start
-```
 
-### Open in Your Browser
-
-```
+### Open in your browser
 http://localhost:3000
-```
 
----
-
-## 🐳 Docker (Production)
+### 🐳 Docker (Production)
 
 Running the app via Docker is the recommended approach.
 
-### Build the Docker Image
-
-```bash
+Build the Docker image
 docker build -t hulu-clone:prod .
-```
 
-### Run the Container
-
-```bash
+### Run the container
 docker run --rm -p 3000:80 hulu-clone:prod
-```
 
-### Open in Your Browser
 
-```
+### Open in your browser:
+
 http://localhost:3000
-```
 
-### What Happens in Docker
+### What happens in Docker
 
-- React app is built using Node.js in a build stage
-- A static production build is generated
-- nginx serves the static files
-- No Node.js runtime is required in the final image
+React app is built using Node.js in a build stage
 
----
+A static production build is generated
 
-## 🌐 SPA Routing
+nginx serves the static files
+
+No Node.js runtime is required in the final image
+
+### 🌐 SPA Routing
 
 This application is a Single Page Application (SPA).
 
 The nginx configuration ensures that client-side routes work correctly on refresh or direct access:
 
-```nginx
 location / {
-    try_files $uri $uri/ /index.html;
+  try_files $uri $uri/ /index.html;
 }
-```
 
-Without this configuration, refreshing routes such as `/movie/123` would result in a 404 error.
+Without this configuration, refreshing routes such as /movie/123 would result in a 404 error.
 
----
 
-## 🔐 TMDB API Notes
+### 🔐 TMDB API Notes
 
-- Movie data is fetched client-side from the TMDB API
-- API keys used in the frontend are public-read and visible in the browser
-- This is expected behavior for TMDB and similar public APIs
-- No secrets are stored inside the Docker image
+Movie data is fetched client-side from the TMDB API
 
----
+API keys used in the frontend are public-read and visible in the browser
 
-## 📦 Why nginx + Docker?
+This is expected behaviour for TMDB and similar public APIs
 
-- Faster and lighter than running a Node.js dev server
-- Smaller, more secure runtime image
-- Matches real-world SPA deployment patterns (CDN / edge hosting)
-- Clear separation between build-time and runtime concerns
+No secrets are stored inside the Docker image
+
+### 📦 Why nginx + Docker?
+
+Faster and lighter than running a Node.js dev server
+
+Smaller, more secure runtime image
+
+Matches real-world SPA deployment patterns (CDN / edge hosting)
+
+Clear separation between build-time and runtime concerns
