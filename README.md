@@ -1,72 +1,115 @@
-# Getting Started with Create React App
+# 🎬 Hulu Clone (React + Docker)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A Hulu-style movie browsing application built with **React (Create React App)** and powered by **real-time TMDB API data**.  
+The application is containerised using a **multi-stage Docker build** and served via **nginx** for fast, production-grade delivery.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `yarn start`
+- Responsive Hulu-style user interface
+- Real movie data fetched from the TMDB API
+- Category-based browsing (Trending, Top Rated, Action, etc.)
+- Optimised production build served via nginx
+- Fully containerised frontend (no Node.js runtime in production)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🛠 Tech Stack
 
-### `yarn test`
+- **Frontend:** React (Create React App)
+- **UI:** Material UI (icons)
+- **Data Source:** TMDB REST API
+- **Package Manager:** npm
+- **Containerisation:** Docker (multi-stage build)
+- **Web Server:** nginx
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `yarn build`
+## 📁 Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+HULU-CLONE/
+├─ src/ # React source code
+├─ public/ # Static public assets
+├─ nginx.conf # nginx SPA routing configuration
+├─ Dockerfile # Production Dockerfile
+├─ .dockerignore
+├─ package.json
+├─ package-lock.json
+└─ README.md
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `yarn eject`
+## 🧑‍💻 Local Development (Node.js)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Prerequisites
+- Node.js 18 or later
+- npm
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Install dependencies
+npm install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Run the application
+npm start
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Open in your browser
+http://localhost:3000
 
-## Learn More
+### 🐳 Docker (Production)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Running the app via Docker is the recommended approach.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Build the Docker image
+docker build -t hulu-clone:prod .
 
-### Code Splitting
+### Run the container
+docker run --rm -p 3000:80 hulu-clone:prod
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### Open in your browser:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+http://localhost:3000
 
-### Making a Progressive Web App
+### What happens in Docker
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+React app is built using Node.js in a build stage
 
-### Advanced Configuration
+A static production build is generated
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+nginx serves the static files
 
-### Deployment
+No Node.js runtime is required in the final image
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 🌐 SPA Routing
 
-### `yarn build` fails to minify
+This application is a Single Page Application (SPA).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The nginx configuration ensures that client-side routes work correctly on refresh or direct access:
 
-Thanks
+location / {
+  try_files $uri $uri/ /index.html;
+}
+
+Without this configuration, refreshing routes such as /movie/123 would result in a 404 error.
+
+
+### 🔐 TMDB API Notes
+
+Movie data is fetched client-side from the TMDB API
+
+API keys used in the frontend are public-read and visible in the browser
+
+This is expected behaviour for TMDB and similar public APIs
+
+No secrets are stored inside the Docker image
+
+### 📦 Why nginx + Docker?
+
+Faster and lighter than running a Node.js dev server
+
+Smaller, more secure runtime image
+
+Matches real-world SPA deployment patterns (CDN / edge hosting)
+
+Clear separation between build-time and runtime concerns
