@@ -86,6 +86,31 @@ nginx serves the static files
 
 No Node.js runtime is required in the final image
 
+## 🔁 CI/CD with GitHub Actions
+
+This project uses **GitHub Actions** to automatically build and publish the Docker image.
+
+### What happens on push
+
+- ✅ React app is built and validated
+- 🐳 Docker image is created using a multi-stage build
+- 📤 Image is pushed to **GitHub Container Registry (GHCR)**
+
+### Image naming
+
+```
+ghcr.io/<github-username>/hulu-clone:latest
+```
+
+### Pull and run the published image
+
+```bash
+docker pull ghcr.io/<github-username>/hulu-clone:latest
+docker run --rm -p 3000:80 ghcr.io/<github-username>/hulu-clone:latest
+```
+
+---
+
 ### 🌐 SPA Routing
 
 This application is a Single Page Application (SPA).
