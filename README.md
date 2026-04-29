@@ -148,6 +148,39 @@ This mirrors real-world cloud deployment patterns for containerised SPAs.
 
 ---
 
+## ☸️ Kubernetes Deployment (Local k3s)
+
+This application has been deployed to a local Kubernetes cluster (k3s) to simulate a production-style environment.
+
+### Architecture
+
+```
+Browser → hulu.local → Ingress (Traefik) → Service → Pod (nginx)
+```
+
+### Components
+
+- **Deployment:** Runs the containerised application
+- **Service (ClusterIP):** Internal routing within the cluster
+- **Ingress (Traefik):** Handles domain-based routing via `hulu.local`
+
+### Access
+
+The application is exposed locally using a custom domain:
+
+[http://hulu.local](http://hulu.local)
+
+This is achieved via a local `/etc/hosts` mapping.
+
+### Key Learnings
+
+- Containerised application deployment on Kubernetes
+- Service-based networking and routing
+- Ingress controller configuration (Traefik)
+- Local DNS simulation using `/etc/hosts`
+
+---
+
 ## 🌐 SPA Routing
 
 This application is a Single Page Application (SPA). The nginx configuration ensures that client-side routes work correctly on refresh or direct access:

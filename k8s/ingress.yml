@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hulu-ingress
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: hulu.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hulu-clone-service
+            port:
+              number: 80

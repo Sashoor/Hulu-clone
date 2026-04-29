@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hulu-clone-service
+spec:
+  type: ClusterIP
+  selector:
+    app: hulu-clone
+  ports:
+    - port: 80
+      targetPort: 80
