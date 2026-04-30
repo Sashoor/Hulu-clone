@@ -117,14 +117,14 @@ This project uses **GitHub Actions** to automatically build and publish the Dock
 ### Image Naming
 
 ```plaintext
-ghcr.io/<github-username>/hulu-clone:latest
+ghcr.io/sashoor/hulu-clone:latest
 ```
 
 ### Pull and Run the Published Image
 
 ```bash
-docker pull ghcr.io/<github-username>/hulu-clone:latest
-docker run --rm -p 3000:80 ghcr.io/<github-username>/hulu-clone:latest
+docker pull ghcr.io/sashoor/hulu-clone:latest
+docker run --rm -p 3000:80 ghcr.io/sashoor/hulu-clone:latest
 ```
 
 ---
