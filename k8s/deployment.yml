@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: hulu-clone
-          image: ghcr.io/sashoor/hulu-clone:847f61f51978f07948491b0d1986b16f8fc804a9
+          image: hulu-clone:local
           ports:
             - containerPort: 80

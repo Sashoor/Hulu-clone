@@ -5,7 +5,7 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-  - host: hulu.local
+  - host: hulu.saeedashoor.com
     http:
       paths:
       - path: /

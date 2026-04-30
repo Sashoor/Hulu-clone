@@ -1,18 +1,49 @@
 # Kubernetes Manifests
 
-This directory contains Kubernetes configuration for deploying the Hulu Clone application on a local k3s cluster.
+This directory contains Kubernetes configuration for deploying the Hulu Clone application.
 
-## Resources
+---
 
-- Deployment: Runs the nginx-based container
-- Service (ClusterIP): Internal cluster networking
-- Ingress (Traefik): Routes traffic via `hulu.local`
+## 🌍 Environments
 
-## Flow
+### 🧪 Local (k3s)
 
-Browser → Ingress → Service → Pod
+- Used for development and testing  
+- Access via: http://hulu.local  
+- Requires `/etc/hosts` mapping  
 
-## Notes
+---
 
-- Traefik is used as the ingress controller (default in k3s)
-- Local DNS resolution is handled via `/etc/hosts`
+### 🌍 Public (VPS Deployment)
+
+- Hosted on a VPS running k3s  
+- Publicly accessible via: http://hulu.saeedashoor.com
+
+---
+
+## 🧱 Resources
+
+- **Deployment** → Runs the containerised application  
+- **Service (ClusterIP)** → Internal cluster networking  
+- **Ingress (Traefik)** → Routes traffic to the application  
+
+---
+
+## 🔀 Traffic Flow
+
+### Local
+
+Browser → hulu.local → Ingress → Service → Pod
+
+### Public
+
+User → Cloudflare DNS → VPS → Traefik → Service → Pod
+
+---
+
+## ⚙️ Notes
+
+- Traefik is the default ingress controller in k3s  
+- Ingress host must match the domain exactly  
+- Local uses `/etc/hosts`  
+- Public uses Cloudflare DNS 

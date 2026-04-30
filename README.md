@@ -1,5 +1,9 @@
 # 🎬 Hulu Clone (React + Docker)
 
+## 🌐 Live Demo
+
+http://hulu.saeedashoor.com
+
 ![Homepage](screenshots/homepage.png)
 
 A Hulu-style movie browsing application built with **React (Create React App)** and powered by **real-time TMDB API data**.  
@@ -210,3 +214,59 @@ Without this configuration, refreshing routes such as `/movie/123` would result 
 - Smaller, more secure runtime image.
 - Matches real-world SPA deployment patterns (CDN / edge hosting).
 - Clear separation between build-time and runtime concerns.
+
+---
+
+## 🌍 Public Deployment (VPS + Kubernetes)
+
+In addition to local and Azure environments, this application is deployed on a **public VPS running k3s**, exposed via a custom domain.
+
+### 🌐 Live Application
+
+[http://hulu.saeedashoor.com](http://hulu.saeedashoor.com)
+
+---
+
+### 🧱 Architecture
+
+```text
+User → Cloudflare DNS → VPS → Traefik Ingress → Service → Pod (nginx)
+```
+
+
+---
+
+### ⚙️ Infrastructure
+
+- Domain: saeedashoor.com
+- DNS Provider: Cloudflare
+- Hosting: VPS (Hetzner)
+- Kubernetes: k3s
+- Ingress Controller: Traefik
+
+---
+
+### ⚠️ Key Challenges Solved
+
+- **ImagePullBackOff**
+  - Cause: Architecture mismatch (ARM vs AMD)
+  - Fix: Built Docker image directly on VPS
+
+- **Ingress 404**
+  - Cause: Host mismatch (`hulu.local` vs public domain)
+  - Fix: Updated ingress host
+
+- **DNS Configuration**
+  - Cause: Incorrect domain mapping
+  - Fix: Configured Cloudflare A record
+
+---
+
+### 🧠 What This Demonstrates
+
+- End-to-end DevOps workflow
+- Real Kubernetes deployment on raw infrastructure
+- DNS + ingress routing
+- Practical debugging across multiple layers
+
+---
